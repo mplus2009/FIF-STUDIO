@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>¡Gracias! - FIF STUDIO</title>
+<title>¡Gracias! 🔥 FIF STUDIO</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
   body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    font-family: 'Rajdhani', sans-serif;
+    background: linear-gradient(135deg, #0a0a15 0%, #13132b 50%, #1a1a3e 100%);
     color: #eaeaea;
     min-height: 100vh;
     display: flex;
@@ -16,50 +18,141 @@
     justify-content: center;
     padding: 20px;
     text-align: center;
+    overflow: hidden;
+    position: relative;
   }
+
+  .bg-fire::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(2px 2px at 20% 30%, rgba(255,107,53,0.6), transparent),
+      radial-gradient(2px 2px at 60% 70%, rgba(255,204,0,0.5), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,69,0,0.7), transparent),
+      radial-gradient(1px 1px at 80% 20%, rgba(247,147,30,0.6), transparent);
+    animation: sparkle 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes sparkle {
+    0%   { opacity: 0.3; }
+    100% { opacity: 0.9; }
+  }
+
   .card {
-    max-width: 550px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 16px;
-    padding: 50px 30px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    max-width: 600px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,107,53,0.25);
+    border-radius: 24px;
+    padding: 50px 35px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 80px rgba(255,107,53,0.15);
+    position: relative;
+    z-index: 1;
+    animation: cardIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .emoji { font-size: 4em; margin-bottom: 20px; }
+
+  @keyframes cardIn {
+    0%   { opacity: 0; transform: translateY(40px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff4500, #f7931e, #ffcc00, #f7931e, #ff4500);
+    background-size: 200% 100%;
+    border-radius: 24px 24px 0 0;
+    animation: gradientMove 3s linear infinite;
+  }
+
+  @keyframes gradientMove {
+    0%   { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .fire-big {
+    font-size: 5em;
+    display: block;
+    margin-bottom: 15px;
+    animation: flicker 1.5s infinite alternate;
+    filter: drop-shadow(0 0 30px rgba(255,107,53,0.8));
+  }
+
+  @keyframes flicker {
+    0%   { transform: scale(1); filter: drop-shadow(0 0 30px rgba(255,107,53,0.8)); }
+    100% { transform: scale(1.1); filter: drop-shadow(0 0 50px rgba(255,204,0,1)); }
+  }
+
   h1 {
-    font-size: 2em;
-    background: linear-gradient(90deg, #ff6b35, #f7931e, #ffcc00);
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.8em, 5vw, 2.5em);
+    font-weight: 900;
+    letter-spacing: 3px;
+    background: linear-gradient(135deg, #ff4500 0%, #f7931e 50%, #ffcc00 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 20px;
+    background-clip: text;
+    margin-bottom: 25px;
   }
-  p { line-height: 1.7; color: #c0c0d0; margin-bottom: 15px; }
-  .highlight { color: #ffcc00; font-weight: bold; }
-  a {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 12px 28px;
-    background: linear-gradient(90deg, #ff6b35, #f7931e);
-    color: #fff;
+
+  p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: #c0c0d0;
+    margin-bottom: 15px;
+  }
+
+  .highlight {
+    color: #ffcc00;
+    font-weight: 700;
+  }
+
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 25px;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #ff4500, #f7931e);
+    color: white;
     text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: transform 0.2s;
+    border-radius: 50px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+    box-shadow: 0 8px 25px rgba(255,107,53,0.4);
   }
-  a:hover { transform: translateY(-2px); }
-  .logo { color: #ff6b35; font-weight: bold; letter-spacing: 2px; margin-top: 30px; font-size: 0.9em; }
+
+  .btn-back:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255,107,53,0.6);
+  }
+
+  .logo-footer {
+    margin-top: 35px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85em;
+    letter-spacing: 4px;
+    color: #ff6b35;
+    opacity: 0.7;
+  }
 </style>
 </head>
 <body>
+<div class="bg-fire"></div>
 <div class="card">
-  <div class="emoji">🔥</div>
+  <span class="fire-big">🔥</span>
   <h1>¡Solicitud Enviada!</h1>
   <p>Gracias por querer formar parte de <span class="highlight">FIF STUDIO</span>.</p>
   <p>Hemos recibido tu solicitud correctamente. Revisaremos tu perfil y te contactaremos por <span class="highlight">Discord o correo</span> lo antes posible.</p>
-  <p>Mientras tanto, sigue practicando y creando. La forja no se detiene. 🔥</p>
-  <a href="index.html">← Volver al inicio</a>
-  <div class="logo">FORGED IN FIRE</div>
+  <p>Mientras tanto, sigue practicando y creando.<br>La forja no se detiene. ⚔️</p>
+  <a href="index.html" class="btn-back">← VOLVER AL INICIO</a>
+  <div class="logo-footer">FORGED IN FIRE</div>
 </div>
 </body>
 </html>
