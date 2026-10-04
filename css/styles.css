@@ -1111,3 +1111,21 @@ footer .footer-note strong { color: var(--fire3); }
 .footer-logo-img {
   filter: brightness(1.1) contrast(1.2);
 }
+
+/* ============ LOGO PNG ============ */
+.logo-img {
+  background: transparent;
+  border-radius: 0;
+  filter: drop-shadow(0 0 30px rgba(255,107,53,0.8)) 
+          drop-shadow(0 0 60px rgba(255,69,0,0.5));
+  animation: logoPulse 2.5s ease-in-out infinite;
+}
+
+.footer-logo-img {
+  background: transparent;
+  width: 60px;
+  height: auto;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 15px rgba(255,107,53,0.5));
+  opacity: 0.9;
+}
