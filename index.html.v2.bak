@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIF STUDIO 🔥 Forged in Fire | Únete al equipo</title>
+<meta name="description" content="Estudio indie de videojuegos buscando jóvenes cubanos apasionados. Programación, arte, diseño y más.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --fire1: #ff4500;
+    --fire2: #ff6b35;
+    --fire3: #f7931e;
+    --fire4: #ffcc00;
+    --dark1: #0a0a15;
+    --dark2: #13132b;
+    --dark3: #1a1a3e;
+    --text: #eaeaea;
+    --text-dim: #a0a0c0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--dark1);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CURSOR PERSONALIZADO */
+  .cursor-dot, .cursor-ring {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99999;
+    border-radius: 50%;
+    transition: transform 0.15s ease;
+    mix-blend-mode: screen;
+  }
+  .cursor-dot {
+    width: 8px; height: 8px;
+    background: var(--fire4);
+    box-shadow: 0 0 15px var(--fire3), 0 0 30px var(--fire2);
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 35px; height: 35px;
+    border: 2px solid var(--fire2);
+    box-shadow: 0 0 20px rgba(255,107,53,0.5);
+    transform: translate(-50%, -50%);
+    transition: transform 0.25s ease, width 0.25s, height 0.25s;
+  }
+  .cursor-ring.hover {
+    width: 60px; height: 60px;
+    border-color: var(--fire4);
+    background: rgba(255,204,0,0.1);
+  }
+  @media (max-width: 768px) {
+    body { cursor: auto; }
+    .cursor-dot, .cursor-ring { display: none; }
+  }
+
+  /* BARRA DE PROGRESO SCROLL */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--fire1), var(--fire3), var(--fire4));
+    z-index: 9999;
+    width: 0%;
+    box-shadow: 0 0 15px var(--fire2);
+    transition: width 0.1s;
+  }
+
+  /* NAVEGACIÓN FLOTANTE */
+  .nav-float {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    padding: 8px 15px;
+    background: rgba(10,10,21,0.8);
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 50px;
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .nav-float.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .nav-float a {
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 8px 16px;
+    font-size: 0.85em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 30px;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+  .nav-float a:hover {
+    color: var(--fire4);
+    background: rgba(255,107,53,0.15);
+    transform: scale(1.05);
+  }
+  @media (max-width: 600px) {
+    .nav-float { padding: 6px 10px; }
+    .nav-float a { padding: 6px 10px; font-size: 0.75em; }
+  }
+
+  /* CANVAS DE FONDO */
+  #fireCanvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -2;
+    pointer-events: none;
+  }
+
+  .bg-gradient {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -3;
+    background: linear-gradient(135deg, #0a0a15 0%, #13132b 50%, #1a1a3e 100%);
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  .logo-container {
+    position: relative;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-15px); }
+  }
+
+  .logo-fire {
+    font-size: 6em;
+    line-height: 1;
+    filter: drop-shadow(0 0 30px rgba(255,107,53,0.9)) 
+            drop-shadow(0 0 60px rgba(255,69,0,0.6));
+    animation: flicker 2s infinite alternate;
+  }
+
+  @keyframes flicker {
+    0%   { transform: scale(1) rotate(-2deg); }
+    50%  { transform: scale(1.08) rotate(2deg); filter: drop-shadow(0 0 40px rgba(255,204,0,1)) drop-shadow(0 0 80px rgba(255,69,0,0.8)); }
+    100% { transform: scale(1) rotate(-2deg); }
+  }
+
+  .title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2.8em, 9vw, 6em);
+    font-weight: 900;
+    letter-spacing: 6px;
+    background: linear-gradient(135deg, #ff4500 0%, #ff6b35 25%, #f7931e 50%, #ffcc00 75%, #f7931e 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 15px;
+    animation: gradientShift 4s ease infinite;
+    filter: drop-shadow(0 0 30px rgba(255,107,53,0.5));
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+
+  .subtitle {
+    font-size: clamp(1em, 2.5vw, 1.3em);
+    color: var(--text-dim);
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+    font-weight: 600;
+    min-height: 1.5em;
+  }
+
+  .typing-text {
+    display: inline-block;
+    overflow: hidden;
+    border-right: 2px solid var(--fire2);
+    white-space: nowrap;
+    animation: typing 3s steps(40) 1s forwards, blink 0.7s infinite;
+    max-width: 0;
+  }
+
+  @keyframes typing {
+    from { max-width: 0; }
+    to   { max-width: 100%; }
+  }
+
+  @keyframes blink {
+    50% { border-color: transparent; }
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .btn {
+    padding: 18px 45px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95em;
+    font-weight: 700;
+    letter-spacing: 3px;
+    border: none;
+    border-radius: 50px;
+    cursor: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--fire1), var(--fire3));
+    color: white;
+    box-shadow: 0 10px 40px rgba(255,107,53,0.5), 
+                inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 20px 50px rgba(255,107,53,0.8),
+                inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s;
+  }
+
+  .btn-primary:hover::before { left: 100%; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid rgba(255,107,53,0.5);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--fire2);
+    background: rgba(255,107,53,0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(255,107,53,0.3);
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-dim);
+    font-size: 0.85em;
+    letter-spacing: 3px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(-12px); }
+  }
+
+  .scroll-arrow {
+    font-size: 1.8em;
+    display: block;
+    margin-top: 5px;
+    color: var(--fire2);
+  }
+
+  /* SECCIONES */
+  section {
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2em, 5vw, 3em);
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 15px;
+    letter-spacing: 4px;
+    color: var(--text);
+  }
+
+  .section-title .accent {
+    background: linear-gradient(135deg, var(--fire1), var(--fire4));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 40px rgba(255,107,53,0.4);
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: var(--text-dim);
+    margin-bottom: 60px;
+    font-size: 1.15em;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+  }
+
+  /* CARDS */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  .card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,107,53,0.2);
+    border-radius: 24px;
+    padding: 35px 25px;
+    text-align: center;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--fire1), var(--fire3), var(--fire4));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s;
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,107,53,0.15), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+
+  .card:hover::after { opacity: 1; }
+
+  .card:hover {
+    transform: translateY(-12px) scale(1.03);
+    border-color: var(--fire2);
+    box-shadow: 0 30px 60px rgba(255,107,53,0.3);
+  }
+
+  .card:hover::before { transform: scaleX(1); }
+
+  .card-icon {
+    font-size: 3.5em;
+    margin-bottom: 18px;
+    display: block;
+    filter: drop-shadow(0 0 20px rgba(255,107,53,0.7));
+    transition: transform 0.5s;
+  }
+
+  .card:hover .card-icon {
+    transform: scale(1.15) rotate(-5deg);
+  }
+
+  .card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.15em;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    color: var(--fire3);
+  }
+
+  .card p {
+    color: var(--text-dim);
+    line-height: 1.7;
+    font-size: 1em;
+  }
+
+  /* ESTADÍSTICAS */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 50px;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 25px 15px;
+    border-radius: 16px;
+    background: rgba(255,107,53,0.05);
+    border: 1px solid rgba(255,107,53,0.2);
+    transition: all 0.3s;
+  }
+
+  .stat-item:hover {
+    background: rgba(255,107,53,0.12);
+    transform: translateY(-5px);
+  }
+
+  .stat-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5em;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--fire2), var(--fire4));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .stat-label {
+    color: var(--text-dim);
+    font-size: 0.9em;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* AREAS */
+  .areas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 18px;
+    margin-top: 30px;
+  }
+
+  .area-tag {
+    background: rgba(255,107,53,0.08);
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 16px;
+    padding: 22px 15px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .area-tag::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--fire1), var(--fire3));
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 0;
+  }
+
+  .area-tag > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .area-tag:hover {
+    transform: translateY(-5px) scale(1.05);
+    border-color: var(--fire4);
+    box-shadow: 0 15px 40px rgba(255,107,53,0.4);
+    color: white;
+  }
+
+  .area-tag:hover::before { opacity: 0.15; }
+
+  .area-tag .emoji {
+    display: block;
+    font-size: 2em;
+    margin-bottom: 10px;
+    transition: transform 0.3s;
+  }
+
+  .area-tag:hover .emoji {
+    transform: scale(1.2) rotate(-8deg);
+  }
+
+  /* FORMULARIO */
+  .form-container {
+    background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,107,53,0.25);
+    border-radius: 28px;
+    padding: 50px 40px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .form-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--fire1), var(--fire3), var(--fire4), var(--fire3), var(--fire1));
+    background-size: 200% 100%;
+    animation: gradientMove 3s linear infinite;
+  }
+
+  @keyframes gradientMove {
+    0%   { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .form-group {
+    margin-bottom: 22px;
+    position: relative;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    font-size: 0.95em;
+    transition: color 0.3s;
+  }
+
+  .form-group label .req {
+    color: var(--fire2);
+    margin-left: 3px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 15px 18px;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    background: rgba(0,0,0,0.4);
+    color: white;
+    font-size: 1em;
+    font-family: inherit;
+    transition: all 0.3s;
+    cursor: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--fire2);
+    background: rgba(0,0,0,0.6);
+    box-shadow: 0 0 0 4px rgba(255,107,53,0.15), 0 0 30px rgba(255,107,53,0.3);
+    transform: translateY(-2px);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-group select option {
+    background: var(--dark2);
+    color: white;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  @media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1em;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: white;
+    background: linear-gradient(135deg, var(--fire1), var(--fire3));
+    border: none;
+    border-radius: 16px;
+    cursor: none;
+    margin-top: 15px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    box-shadow: 0 12px 40px rgba(255,107,53,0.5);
+    text-transform: uppercase;
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(255,107,53,0.8);
+    letter-spacing: 6px;
+  }
+
+  .btn-submit::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.7s, height 0.7s;
+  }
+
+  .btn-submit:hover::after {
+    width: 500px;
+    height: 500px;
+  }
+
+  .btn-submit span {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* BOTÓN VOLVER ARRIBA */
+  .back-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, var(--fire1), var(--fire3));
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: none;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.4s;
+    z-index: 999;
+    box-shadow: 0 10px 30px rgba(255,107,53,0.5);
+  }
+
+  .back-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .back-top:hover {
+    transform: translateY(-5px) scale(1.15) rotate(360deg);
+    box-shadow: 0 20px 50px rgba(255,107,53,0.8);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--text-dim);
+    border-top: 1px solid rgba(255,107,53,0.15);
+    margin-top: 60px;
+    position: relative;
+    background: rgba(0,0,0,0.3);
+  }
+
+  footer .footer-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5em;
+    font-weight: 900;
+    letter-spacing: 5px;
+    background: linear-gradient(135deg, var(--fire1), var(--fire4));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 20px rgba(255,107,53,0.5));
+  }
+
+  footer .footer-note {
+    font-size: 0.9em;
+    line-height: 1.8;
+    max-width: 550px;
+    margin: 0 auto;
+  }
+
+  footer .footer-note strong {
+    color: var(--fire3);
+  }
+
+  /* ANIMACIONES DE ENTRADA */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+
+  .stagger.visible > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stagger.visible > *:nth-child(1) { transition-delay: 0.1s; }
+  .stagger.visible > *:nth-child(2) { transition-delay: 0.2s; }
+  .stagger.visible > *:nth-child(3) { transition-delay: 0.3s; }
+  .stagger.visible > *:nth-child(4) { transition-delay: 0.4s; }
+  .stagger.visible > *:nth-child(5) { transition-delay: 0.5s; }
+  .stagger.visible > *:nth-child(6) { transition-delay: 0.6s; }
+  .stagger.visible > *:nth-child(7) { transition-delay: 0.7s; }
+  .stagger.visible > *:nth-child(8) { transition-delay: 0.8s; }
+
+  @media (max-width: 768px) {
+    section { padding: 70px 15px; }
+    .form-container { padding: 35px 22px; }
+    .logo-fire { font-size: 4em; }
+    .back-top { width: 45px; height: 45px; bottom: 20px; right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- PROGRESO -->
+<div class="scroll-progress"></div>
+
+<!-- NAVEGACIÓN FLOTANTE -->
+<nav class="nav-float" id="navFloat">
+  <a href="#info">ℹ️ Info</a>
+  <a href="#areas">🎯 Áreas</a>
+  <a href="#aplicar">🔥 Aplicar</a>
+</nav>
+
+<!-- FONDO -->
+<div class="bg-gradient"></div>
+<canvas id="fireCanvas"></canvas>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="logo-container">
+    <div class="logo-fire">🔥</div>
+  </div>
+  <h1 class="title">FIF STUDIO</h1>
+  <p class="subtitle">
+    <span class="typing-text">Forged in Fire ⚔️ Forjado en el fuego</span>
+  </p>
+
+  <div class="cta-buttons">
+    <a href="#aplicar" class="btn btn-primary">⚡ ÚNETE AL EQUIPO</a>
+    <a href="#info" class="btn btn-ghost">📖 SABER MÁS</a>
+  </div>
+
+  <div class="scroll-down">
+    SCROLL
+    <span class="scroll-arrow">↓</span>
+  </div>
+</div>
+
+<!-- INFO -->
+<section id="info" class="fade-in">
+  <h2 class="section-title">¿Quiénes <span class="accent">somos</span>?</h2>
+  <p class="section-subtitle">Un estudio indie forjándose desde cero</p>
+
+  <div class="cards-grid stagger">
+    <div class="card">
+      <span class="card-icon">🎮</span>
+      <h3>PROYECTO REAL</h3>
+      <p>Estamos creando un videojuego desde cero. Tu trabajo será parte de algo real, no un ejercicio.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🌍</span>
+      <h3>100% REMOTO</h3>
+      <p>Trabajamos desde cualquier lugar de Cuba. Reuniones 1-2 veces por semana según tu área.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🏆</span>
+      <h3>CRÉDITOS REALES</h3>
+      <p>Aparecerás en los créditos del juego terminado. Perfecto para tu portafolio profesional.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔥</span>
+      <h3>SIN EXPERIENCIA</h3>
+      <p>No importa si eres principiante. Lo que importa son las ganas de aprender y crear.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ESTADÍSTICAS -->
+<section class="fade-in">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <span class="stat-number" data-target="8">0</span>
+      <span class="stat-label">Áreas abiertas</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="100">0</span>
+      <span class="stat-label">% Remoto</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="16">0</span>
+      <span class="stat-label">Edad mínima</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="23">0</span>
+      <span class="stat-label">Edad máxima</span>
+    </div>
+  </div>
+</section>
+
+<!-- AREAS -->
+<section id="areas" class="fade-in">
+  <h2 class="section-title">Áreas <span class="accent">abiertas</span></h2>
+  <p class="section-subtitle">Busca tu lugar en la forja</p>
+
+  <div class="areas-grid stagger">
+    <div class="area-tag"><span class="emoji">💻</span>Programación</div>
+    <div class="area-tag"><span class="emoji">🎨</span>Arte 2D</div>
+    <div class="area-tag"><span class="emoji">🗿</span>Arte 3D</div>
+    <div class="area-tag"><span class="emoji">🎯</span>Diseño</div>
+    <div class="area-tag"><span class="emoji">🎵</span>Audio</div>
+    <div class="area-tag"><span class="emoji">🧪</span>QA / Testing</div>
+    <div class="area-tag"><span class="emoji">📢</span>Marketing</div>
+    <div class="area-tag"><span class="emoji">📝</span>Guion</div>
+  </div>
+</section>
+
+<!-- FORMULARIO -->
+<section id="aplicar" class="fade-in">
+  <h2 class="section-title">Aplica <span class="accent">ahora</span></h2>
+  <p class="section-subtitle">Jóvenes cubanos de 16 a 23 años · Colaboración voluntaria</p>
+
+  <div class="form-container">
+    <form action="https://formsubmit.co/maikelmplus2009@gmail.com" method="POST">
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre completo <span class="req">*</span></label>
+          <input type="text" name="Nombre" required placeholder="Tu nombre y apellidos">
+        </div>
+
+        <div class="form-group">
+          <label>Edad <span class="req">*</span></label>
+          <input type="number" name="Edad" min="16" max="23" required placeholder="16 a 23 años">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Correo electrónico <span class="req">*</span></label>
+          <input type="email" name="Email" required placeholder="tucorreo@ejemplo.com">
+        </div>
+
+        <div class="form-group">
+          <label>Discord / Telegram <span class="req">*</span></label>
+          <input type="text" name="Contacto" required placeholder="@usuario o usuario#1234">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Provincia / Ciudad <span class="req">*</span></label>
+        <input type="text" name="Ubicacion" required placeholder="Ej: La Habana, Camagüey, Santiago...">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Área de interés <span class="req">*</span></label>
+          <select name="Area" required>
+            <option value="">-- Selecciona --</option>
+            <option value="Programación">💻 Programación</option>
+            <option value="Arte 2D">🎨 Arte 2D</option>
+            <option value="Arte 3D">🗿 Arte 3D</option>
+            <option value="Diseño de juego">🎯 Diseño de juego</option>
+            <option value="Audio">🎵 Audio</option>
+            <option value="QA / Testing">🧪 QA / Testing</option>
+            <option value="Marketing">📢 Marketing</option>
+            <option value="Guion / Narrativa">📝 Guion / Narrativa</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Nivel de experiencia <span class="req">*</span></label>
+          <select name="Experiencia" required>
+            <option value="">-- Selecciona --</option>
+            <option value="Principiante">🌱 Principiante</option>
+            <option value="Intermedio">⚡ Intermedio</option>
+            <option value="Avanzado">🔥 Avanzado</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>¿Tienes PC y conexión? <span class="req">*</span></label>
+          <select name="Equipo" required>
+            <option value="">-- Selecciona --</option>
+            <option value="Sí, ambos">✅ Sí, ambos</option>
+            <option value="Solo PC">💻 Solo PC/laptop</option>
+            <option value="Solo móvil">📱 Solo móvil</option>
+            <option value="No">❌ No por ahora</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Horas semanales <span class="req">*</span></label>
+          <select name="Horas" required>
+            <option value="">-- Selecciona --</option>
+            <option value="Menos de 5">Menos de 5 horas</option>
+            <option value="5 a 10">5 a 10 horas</option>
+            <option value="10 a 20">10 a 20 horas</option>
+            <option value="Más de 20">Más de 20 horas</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Cuéntanos sobre ti <span class="req">*</span></label>
+        <textarea name="Presentacion" required placeholder="¿Por qué quieres unirte a FIF STUDIO? ¿Qué sabes hacer? ¿Qué te gustaría aprender? ¿Tienes algún portafolio o proyecto previo?"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>¿Cómo nos conociste? (opcional)</label>
+        <input type="text" name="Como nos conociste" placeholder="Discord, amigo, Telegram...">
+      </div>
+
+      <input type="hidden" name="_subject" value="🔥 Nueva solicitud FIF STUDIO">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://mplus2009.github.io/FIF-STUDIO/gracias.html">
+      <input type="hidden" name="_autoresponse" value="¡Gracias por aplicar a FIF STUDIO! 🔥 Hemos recibido tu solicitud. Revisaremos tu perfil y te contactaremos pronto por Discord o correo. Mientras tanto, sigue practicando — la forja no se detiene. ⚔️ — Equipo FIF STUDIO">
+
+      <button type="submit" class="btn-submit">
+        <span>🔥 ENVIAR SOLICITUD 🔥</span>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">FIF STUDIO</div>
+  <div class="footer-note">
+    <strong>Forged in Fire</strong> ⚔️ — 2026<br>
+    Colaboración voluntaria sin remuneración por el momento.<br>
+    Los miembros aparecerán en los créditos del proyecto.
+  </div>
+</footer>
+
+<!-- BOTÓN VOLVER ARRIBA -->
+<button class="back-top" id="backTop">↑</button>
+
+<script>
+  // === CURSOR PERSONALIZADO ===
+  const cursorDot = document.querySelector('.cursor-dot');
+  const cursorRing = document.querySelector('.cursor-ring');
+  
+  document.addEventListener('mousemove', (e) => {
+    cursorDot.style.left = e.clientX + 'px';
+    cursorDot.style.top = e.clientY + 'px';
+    cursorRing.style.left = e.clientX + 'px';
+    cursorRing.style.top = e.clientY + 'px';
+  });
+
+  document.querySelectorAll('a, button, input, select, textarea, .area-tag, .card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+  });
+
+  // === CANVAS DE PARTÍCULAS ===
+  const canvas = document.getElementById('fireCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const particles = [];
+  const PARTICLE_COUNT = 60;
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = canvas.height + Math.random() * 100;
+      this.size = Math.random() * 3 + 1;
+      this.speedY = Math.random() * 1.5 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.8;
+      this.opacity = Math.random() * 0.5 + 0.3;
+      this.color = Math.random() > 0.5 ? '255,107,53' : '255,204,0';
+      this.life = 1;
+    }
+    update() {
+      this.y -= this.speedY;
+      this.x += this.speedX + Math.sin(this.y * 0.01) * 0.5;
+      this.opacity -= 0.003;
+      if (this.y < -50 || this.opacity <= 0) {
+        this.reset();
+      }
+    }
+    draw() {
+      ctx.beginPath();
+      const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 4);
+      gradient.addColorStop(0, `rgba(${this.color}, ${this.opacity})`);
+      gradient.addColorStop(1, `rgba(${this.color}, 0)`);
+      ctx.fillStyle = gradient;
+      ctx.arc(this.x, this.y, this.size * 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push(new Particle());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // === BARRA DE PROGRESO ===
+  const progressBar = document.querySelector('.scroll-progress');
+  const navFloat = document.getElementById('navFloat');
+  const backTop = document.getElementById('backTop');
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrolled / total) * 100;
+    progressBar.style.width = progress + '%';
+
+    if (scrolled > 300) {
+      navFloat.classList.add('visible');
+      backTop.classList.add('visible');
+    } else {
+      navFloat.classList.remove('visible');
+      backTop.classList.remove('visible');
+    }
+  });
+
+  // === BOTÓN VOLVER ARRIBA ===
+  backTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // === ANIMACIONES DE SCROLL ===
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in, .stagger').forEach(el => observer.observe(el));
+
+  // === CONTADOR ANIMADO ===
+  const counters = document.querySelectorAll('.stat-number');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+        entry.target.classList.add('counted');
+        const target = parseInt(entry.target.dataset.target);
+        let current = 0;
+        const step = target / 40;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            entry.target.textContent = target;
+            clearInterval(timer);
+          } else {
+            entry.target.textContent = Math.floor(current);
+          }
+        }, 25);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(c => counterObserver.observe(c));
+
+  // === CARD 3D CON MOUSE ===
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / 20;
+      const rotateY = (centerX - x) / 20;
+      
+      card.style.transform = `translateY(-12px) scale(1.03) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      card.style.setProperty('--mx', x + 'px');
+      card.style.setProperty('--my', y + 'px');
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // === PARALLAX HERO ===
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const hero = document.querySelector('.hero');
+    if (hero && scrolled < window.innerHeight) {
+      hero.style.transform = `translateY(${scrolled * 0.4}px)`;
+      hero.style.opacity = Math.max(0, 1 - scrolled / (window.innerHeight * 0.8));
+    }
+  });
+</script>
+
+</body>
+</html>
