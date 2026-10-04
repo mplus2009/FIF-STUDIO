@@ -34,13 +34,12 @@
     cursor: none;
   }
 
-  /* CURSOR PERSONALIZADO */
+  /* CURSOR */
   .cursor-dot, .cursor-ring {
     position: fixed;
     pointer-events: none;
     z-index: 99999;
     border-radius: 50%;
-    transition: transform 0.15s ease;
     mix-blend-mode: screen;
   }
   .cursor-dot {
@@ -66,7 +65,22 @@
     .cursor-dot, .cursor-ring { display: none; }
   }
 
-  /* BARRA DE PROGRESO SCROLL */
+  /* CLICK WAVE */
+  .click-wave {
+    position: fixed;
+    border: 2px solid var(--fire4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    animation: waveExpand 0.7s ease-out forwards;
+  }
+  @keyframes waveExpand {
+    0%   { width: 0; height: 0; opacity: 1; }
+    100% { width: 100px; height: 100px; opacity: 0; }
+  }
+
+  /* PROGRESO */
   .scroll-progress {
     position: fixed;
     top: 0; left: 0;
@@ -78,23 +92,23 @@
     transition: width 0.1s;
   }
 
-  /* NAVEGACIÓN FLOTANTE */
+  /* NAV */
   .nav-float {
     position: fixed;
     top: 20px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(-20px);
     display: flex;
     gap: 5px;
     padding: 8px 15px;
-    background: rgba(10,10,21,0.8);
+    background: rgba(10,10,21,0.85);
     border: 1px solid rgba(255,107,53,0.3);
     border-radius: 50px;
     backdrop-filter: blur(15px);
     z-index: 1000;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     opacity: 0;
-    transition: opacity 0.3s, transform 0.3s;
+    transition: all 0.4s;
   }
   .nav-float.visible {
     opacity: 1;
@@ -110,6 +124,7 @@
     border-radius: 30px;
     transition: all 0.3s;
     white-space: nowrap;
+    cursor: none;
   }
   .nav-float a:hover {
     color: var(--fire4);
@@ -121,7 +136,7 @@
     .nav-float a { padding: 6px 10px; font-size: 0.75em; }
   }
 
-  /* CANVAS DE FONDO */
+  /* FONDO */
   #fireCanvas {
     position: fixed;
     top: 0; left: 0;
@@ -150,11 +165,7 @@
     position: relative;
   }
 
-  .logo-container {
-    position: relative;
-    margin-bottom: 20px;
-    animation: float 3s ease-in-out infinite;
-  }
+  .logo-container { animation: float 3s ease-in-out infinite; margin-bottom: 20px; }
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
@@ -164,8 +175,7 @@
   .logo-fire {
     font-size: 6em;
     line-height: 1;
-    filter: drop-shadow(0 0 30px rgba(255,107,53,0.9)) 
-            drop-shadow(0 0 60px rgba(255,69,0,0.6));
+    filter: drop-shadow(0 0 30px rgba(255,107,53,0.9)) drop-shadow(0 0 60px rgba(255,69,0,0.6));
     animation: flicker 2s infinite alternate;
   }
 
@@ -252,26 +262,13 @@
   .btn-primary {
     background: linear-gradient(135deg, var(--fire1), var(--fire3));
     color: white;
-    box-shadow: 0 10px 40px rgba(255,107,53,0.5), 
-                inset 0 1px 0 rgba(255,255,255,0.3);
+    box-shadow: 0 10px 40px rgba(255,107,53,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
   }
 
   .btn-primary:hover {
     transform: translateY(-4px) scale(1.08);
-    box-shadow: 0 20px 50px rgba(255,107,53,0.8),
-                inset 0 1px 0 rgba(255,255,255,0.4);
+    box-shadow: 0 20px 50px rgba(255,107,53,0.8), inset 0 1px 0 rgba(255,255,255,0.4);
   }
-
-  .btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    transition: left 0.6s;
-  }
-
-  .btn-primary:hover::before { left: 100%; }
 
   .btn-ghost {
     background: transparent;
@@ -286,7 +283,6 @@
     box-shadow: 0 15px 40px rgba(255,107,53,0.3);
   }
 
-  /* SCROLL INDICATOR */
   .scroll-down {
     position: absolute;
     bottom: 30px;
@@ -326,6 +322,12 @@
     margin-bottom: 15px;
     letter-spacing: 4px;
     color: var(--text);
+    animation: titlePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes titlePulse {
+    0%, 100% { text-shadow: 0 0 20px rgba(255,107,53,0.3); }
+    50%      { text-shadow: 0 0 40px rgba(255,107,53,0.6); }
   }
 
   .section-title .accent {
@@ -333,7 +335,6 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 40px rgba(255,107,53,0.4);
   }
 
   .section-subtitle {
@@ -342,7 +343,6 @@
     margin-bottom: 60px;
     font-size: 1.15em;
     letter-spacing: 1.5px;
-    font-weight: 500;
   }
 
   /* CARDS */
@@ -425,7 +425,7 @@
     font-size: 1em;
   }
 
-  /* ESTADÍSTICAS */
+  /* STATS */
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -524,7 +524,218 @@
     transform: scale(1.2) rotate(-8deg);
   }
 
-  /* FORMULARIO */
+  .area-tag .ver-mas {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.75em;
+    color: var(--fire3);
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .area-tag:hover .ver-mas { opacity: 1; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  .modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal-content {
+    background: linear-gradient(135deg, #1a1a3e, #13132b);
+    border: 1px solid rgba(255,107,53,0.4);
+    border-radius: 24px;
+    padding: 40px 35px;
+    max-width: 550px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(255,107,53,0.3);
+    transform: scale(0.9) translateY(30px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .modal-overlay.active .modal-content {
+    transform: scale(1) translateY(0);
+  }
+
+  .modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--fire1), var(--fire3), var(--fire4));
+    border-radius: 24px 24px 0 0;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 15px; right: 15px;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: rgba(255,107,53,0.15);
+    border: 1px solid rgba(255,107,53,0.4);
+    color: var(--fire3);
+    font-size: 1.3em;
+    cursor: none;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-close:hover {
+    background: var(--fire2);
+    color: white;
+    transform: rotate(90deg);
+  }
+
+  .modal-icon {
+    font-size: 4em;
+    text-align: center;
+    display: block;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 20px rgba(255,107,53,0.7));
+  }
+
+  .modal-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8em;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--fire2), var(--fire4));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+  }
+
+  .modal-description {
+    color: var(--text-dim);
+    line-height: 1.8;
+    font-size: 1.05em;
+    margin-bottom: 20px;
+  }
+
+  .modal-list {
+    list-style: none;
+    margin: 20px 0;
+  }
+
+  .modal-list li {
+    padding: 10px 0 10px 35px;
+    color: var(--text);
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .modal-list li::before {
+    content: '🔥';
+    position: absolute;
+    left: 0;
+    font-size: 1.1em;
+  }
+
+  .modal-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background: linear-gradient(135deg, var(--fire1), var(--fire3));
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: none;
+    transition: all 0.3s;
+    border: none;
+    font-size: 1em;
+  }
+
+  .modal-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255,107,53,0.6);
+  }
+
+  /* FAQ */
+  .faq-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,107,53,0.2);
+    border-radius: 16px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .faq-item:hover {
+    border-color: rgba(255,107,53,0.4);
+  }
+
+  .faq-question {
+    padding: 20px 25px;
+    cursor: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.05em;
+    color: var(--text);
+    user-select: none;
+    transition: all 0.3s;
+  }
+
+  .faq-question:hover {
+    color: var(--fire3);
+    background: rgba(255,107,53,0.05);
+  }
+
+  .faq-arrow {
+    color: var(--fire2);
+    font-size: 1.2em;
+    transition: transform 0.3s;
+  }
+
+  .faq-item.open .faq-arrow {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    padding: 0 25px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 400px;
+    padding: 0 25px 20px;
+  }
+
+  /* FORM */
   .form-container {
     background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
     border: 1px solid rgba(255,107,53,0.25);
@@ -563,7 +774,6 @@
     letter-spacing: 0.5px;
     color: var(--text);
     font-size: 0.95em;
-    transition: color 0.3s;
   }
 
   .form-group label .req {
@@ -616,6 +826,93 @@
     .form-row { grid-template-columns: 1fr; }
   }
 
+  /* CHECKBOXES LEGALES */
+  .legal-checks {
+    background: rgba(255,107,53,0.05);
+    border: 1px solid rgba(255,107,53,0.25);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin: 25px 0 15px;
+  }
+
+  .legal-checks h4 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95em;
+    letter-spacing: 2px;
+    color: var(--fire3);
+    margin-bottom: 15px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+    cursor: none;
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .check-item:last-child { margin-bottom: 0; }
+
+  .check-item input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border: 2px solid rgba(255,107,53,0.5);
+    border-radius: 6px;
+    background: rgba(0,0,0,0.4);
+    cursor: none;
+    position: relative;
+    margin-top: 1px;
+    transition: all 0.3s;
+  }
+
+  .check-item input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, var(--fire1), var(--fire3));
+    border-color: var(--fire4);
+    box-shadow: 0 0 15px rgba(255,107,53,0.5);
+  }
+
+  .check-item input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  .check-item input[type="checkbox"]:hover {
+    border-color: var(--fire4);
+    box-shadow: 0 0 10px rgba(255,107,53,0.3);
+  }
+
+  .check-item label {
+    margin: 0;
+    cursor: none;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  .check-item a {
+    color: var(--fire3);
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 1px dashed var(--fire3);
+    transition: all 0.3s;
+    cursor: none;
+  }
+
+  .check-item a:hover {
+    color: var(--fire4);
+    border-bottom-style: solid;
+  }
+
   .btn-submit {
     width: 100%;
     padding: 20px;
@@ -642,6 +939,19 @@
     letter-spacing: 6px;
   }
 
+  .btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: linear-gradient(135deg, #444, #666);
+    box-shadow: none;
+    transform: none;
+  }
+
+  .btn-submit:disabled:hover {
+    transform: none;
+    letter-spacing: 4px;
+  }
+
   .btn-submit::after {
     content: '';
     position: absolute;
@@ -653,7 +963,7 @@
     transition: width 0.7s, height 0.7s;
   }
 
-  .btn-submit:hover::after {
+  .btn-submit:hover:not(:disabled)::after {
     width: 500px;
     height: 500px;
   }
@@ -663,7 +973,7 @@
     z-index: 1;
   }
 
-  /* BOTÓN VOLVER ARRIBA */
+  /* BACK TOP */
   .back-top {
     position: fixed;
     bottom: 30px;
@@ -717,8 +1027,25 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 15px;
-    filter: drop-shadow(0 0 20px rgba(255,107,53,0.5));
   }
+
+  footer .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  footer .footer-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: color 0.3s;
+    cursor: none;
+  }
+
+  footer .footer-links a:hover { color: var(--fire3); }
 
   footer .footer-note {
     font-size: 0.9em;
@@ -727,16 +1054,13 @@
     margin: 0 auto;
   }
 
-  footer .footer-note strong {
-    color: var(--fire3);
-  }
+  footer .footer-note strong { color: var(--fire3); }
 
-  /* ANIMACIONES DE ENTRADA */
+  /* FADE IN */
   .fade-in {
     opacity: 0;
     transform: translateY(40px);
-    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .fade-in.visible {
@@ -769,26 +1093,23 @@
     .form-container { padding: 35px 22px; }
     .logo-fire { font-size: 4em; }
     .back-top { width: 45px; height: 45px; bottom: 20px; right: 20px; }
+    .modal-content { padding: 30px 22px; }
   }
 </style>
 </head>
 <body>
 
-<!-- CURSOR -->
 <div class="cursor-dot"></div>
 <div class="cursor-ring"></div>
-
-<!-- PROGRESO -->
 <div class="scroll-progress"></div>
 
-<!-- NAVEGACIÓN FLOTANTE -->
 <nav class="nav-float" id="navFloat">
   <a href="#info">ℹ️ Info</a>
   <a href="#areas">🎯 Áreas</a>
+  <a href="#faq">❓ FAQ</a>
   <a href="#aplicar">🔥 Aplicar</a>
 </nav>
 
-<!-- FONDO -->
 <div class="bg-gradient"></div>
 <canvas id="fireCanvas"></canvas>
 
@@ -842,7 +1163,7 @@
   </div>
 </section>
 
-<!-- ESTADÍSTICAS -->
+<!-- STATS -->
 <section class="fade-in">
   <div class="stats-grid">
     <div class="stat-item">
@@ -867,17 +1188,60 @@
 <!-- AREAS -->
 <section id="areas" class="fade-in">
   <h2 class="section-title">Áreas <span class="accent">abiertas</span></h2>
-  <p class="section-subtitle">Busca tu lugar en la forja</p>
+  <p class="section-subtitle">👆 Toca cualquier área para más información</p>
 
   <div class="areas-grid stagger">
-    <div class="area-tag"><span class="emoji">💻</span>Programación</div>
-    <div class="area-tag"><span class="emoji">🎨</span>Arte 2D</div>
-    <div class="area-tag"><span class="emoji">🗿</span>Arte 3D</div>
-    <div class="area-tag"><span class="emoji">🎯</span>Diseño</div>
-    <div class="area-tag"><span class="emoji">🎵</span>Audio</div>
-    <div class="area-tag"><span class="emoji">🧪</span>QA / Testing</div>
-    <div class="area-tag"><span class="emoji">📢</span>Marketing</div>
-    <div class="area-tag"><span class="emoji">📝</span>Guion</div>
+    <div class="area-tag" data-area="programacion"><span class="emoji">💻</span>Programación<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="arte2d"><span class="emoji">🎨</span>Arte 2D<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="arte3d"><span class="emoji">🗿</span>Arte 3D<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="diseno"><span class="emoji">🎯</span>Diseño<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="audio"><span class="emoji">🎵</span>Audio<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="qa"><span class="emoji">🧪</span>QA / Testing<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="marketing"><span class="emoji">📢</span>Marketing<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="guion"><span class="emoji">📝</span>Guion<span class="ver-mas">Ver más →</span></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="fade-in">
+  <h2 class="section-title">Preguntas <span class="accent">frecuentes</span></h2>
+  <p class="section-subtitle">Todo lo que necesitas saber antes de aplicar</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-question">¿Es realmente gratis? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Sí, es 100% gratuito. No cobramos nada por participar. Es una colaboración voluntaria donde todos aprendemos juntos.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">¿Voy a recibir dinero por mi trabajo? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Por ahora no, es una colaboración voluntaria sin remuneración. Si el proyecto genera ingresos en el futuro, se repartirán de forma justa entre los miembros activos.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">¿Qué pasa si no tengo experiencia? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">¡No hay problema! Buscamos personas con ganas de aprender. Los líderes de cada área te guiarán y podrás crecer dentro del equipo.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">¿Cómo son las reuniones? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Son remotas por Discord. Los líderes se reúnen 1 vez por semana con el director, y cada líder se reúne 2 veces por semana con su equipo. Total: 3-4 horas semanales máximo.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">¿Qué pasa si quiero salir del proyecto? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Puedes salir cuando quieras, avisando con al menos 1 semana de anticipación para que podamos redistribuir tu trabajo. No hay contratos vinculantes.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">¿Qué motor gráfico usan? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Principalmente Godot (gratuito y open source) o Unity. La decisión final se toma en conjunto con el equipo de programación.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">¿Necesito mi propio equipo (PC)? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Idealmente sí, una PC o laptop con conexión a internet. Si solo tienes móvil, aún puedes participar en áreas como diseño, guion o marketing.</div>
+    </div>
   </div>
 </section>
 
@@ -887,7 +1251,7 @@
   <p class="section-subtitle">Jóvenes cubanos de 16 a 23 años · Colaboración voluntaria</p>
 
   <div class="form-container">
-    <form action="https://formsubmit.co/maikelmplus2009@gmail.com" method="POST">
+    <form action="https://formsubmit.co/maikelmplus2009@gmail.com" method="POST" id="applyForm">
       
       <div class="form-row">
         <div class="form-group">
@@ -979,22 +1343,60 @@
         <input type="text" name="Como nos conociste" placeholder="Discord, amigo, Telegram...">
       </div>
 
+      <!-- CHECKBOXES LEGALES -->
+      <div class="legal-checks">
+        <h4>📋 ANTES DE ENVIAR</h4>
+        
+        <div class="check-item">
+          <input type="checkbox" id="checkTerms" name="Acepta_Terminos" value="Sí" required>
+          <label for="checkTerms">He leído y acepto los <a href="terminos.html" target="_blank">Términos y Condiciones</a> de FIF STUDIO.</label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="checkPrivacy" name="Acepta_Privacidad" value="Sí" required>
+          <label for="checkPrivacy">He leído y acepto la <a href="privacidad.html" target="_blank">Política de Privacidad</a> y autorizo el uso de mis datos para el proceso de selección.</label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="checkContract" name="Acepta_Contrato" value="Sí" required>
+          <label for="checkContract">He leído y acepto el <a href="contrato.html" target="_blank">Contrato de Colaboración Voluntaria</a> de FIF STUDIO.</label>
+        </div>
+      </div>
+
       <input type="hidden" name="_subject" value="🔥 Nueva solicitud FIF STUDIO">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_next" value="https://mplus2009.github.io/FIF-STUDIO/gracias.html">
       <input type="hidden" name="_autoresponse" value="¡Gracias por aplicar a FIF STUDIO! 🔥 Hemos recibido tu solicitud. Revisaremos tu perfil y te contactaremos pronto por Discord o correo. Mientras tanto, sigue practicando — la forja no se detiene. ⚔️ — Equipo FIF STUDIO">
 
-      <button type="submit" class="btn-submit">
+      <button type="submit" class="btn-submit" id="submitBtn" disabled>
         <span>🔥 ENVIAR SOLICITUD 🔥</span>
       </button>
     </form>
   </div>
 </section>
 
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">✕</button>
+    <span class="modal-icon" id="modalIcon">💻</span>
+    <h3 class="modal-title" id="modalTitle">Programación</h3>
+    <p class="modal-description" id="modalDescription"></p>
+    <ul class="modal-list" id="modalList"></ul>
+    <button class="modal-cta" id="modalCta">🔥 QUIERO ESTA ÁREA</button>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">FIF STUDIO</div>
+  <div class="footer-links">
+    <a href="terminos.html">Términos</a>
+    <a href="privacidad.html">Privacidad</a>
+    <a href="contrato.html">Contrato</a>
+    <a href="#aplicar">Aplicar</a>
+  </div>
   <div class="footer-note">
     <strong>Forged in Fire</strong> ⚔️ — 2026<br>
     Colaboración voluntaria sin remuneración por el momento.<br>
@@ -1002,11 +1404,10 @@
   </div>
 </footer>
 
-<!-- BOTÓN VOLVER ARRIBA -->
 <button class="back-top" id="backTop">↑</button>
 
 <script>
-  // === CURSOR PERSONALIZADO ===
+  // === CURSOR ===
   const cursorDot = document.querySelector('.cursor-dot');
   const cursorRing = document.querySelector('.cursor-ring');
   
@@ -1017,12 +1418,22 @@
     cursorRing.style.top = e.clientY + 'px';
   });
 
-  document.querySelectorAll('a, button, input, select, textarea, .area-tag, .card').forEach(el => {
+  document.querySelectorAll('a, button, input, select, textarea, .area-tag, .card, .faq-question, .check-item').forEach(el => {
     el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
     el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
   });
 
-  // === CANVAS DE PARTÍCULAS ===
+  // === CLICK WAVE ===
+  document.addEventListener('click', (e) => {
+    const wave = document.createElement('div');
+    wave.className = 'click-wave';
+    wave.style.left = e.clientX + 'px';
+    wave.style.top = e.clientY + 'px';
+    document.body.appendChild(wave);
+    setTimeout(() => wave.remove(), 700);
+  });
+
+  // === CANVAS ===
   const canvas = document.getElementById('fireCanvas');
   const ctx = canvas.getContext('2d');
   
@@ -1037,9 +1448,7 @@
   const PARTICLE_COUNT = 60;
 
   class Particle {
-    constructor() {
-      this.reset();
-    }
+    constructor() { this.reset(); }
     reset() {
       this.x = Math.random() * canvas.width;
       this.y = canvas.height + Math.random() * 100;
@@ -1048,15 +1457,12 @@
       this.speedX = (Math.random() - 0.5) * 0.8;
       this.opacity = Math.random() * 0.5 + 0.3;
       this.color = Math.random() > 0.5 ? '255,107,53' : '255,204,0';
-      this.life = 1;
     }
     update() {
       this.y -= this.speedY;
       this.x += this.speedX + Math.sin(this.y * 0.01) * 0.5;
       this.opacity -= 0.003;
-      if (this.y < -50 || this.opacity <= 0) {
-        this.reset();
-      }
+      if (this.y < -50 || this.opacity <= 0) this.reset();
     }
     draw() {
       ctx.beginPath();
@@ -1069,21 +1475,16 @@
     }
   }
 
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push(new Particle());
-  }
+  for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
 
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      p.update();
-      p.draw();
-    });
+    particles.forEach(p => { p.update(); p.draw(); });
     requestAnimationFrame(animate);
   }
   animate();
 
-  // === BARRA DE PROGRESO ===
+  // === PROGRESO Y NAV ===
   const progressBar = document.querySelector('.scroll-progress');
   const navFloat = document.getElementById('navFloat');
   const backTop = document.getElementById('backTop');
@@ -1103,23 +1504,18 @@
     }
   });
 
-  // === BOTÓN VOLVER ARRIBA ===
-  backTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-  // === ANIMACIONES DE SCROLL ===
+  // === FADE IN ===
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.15 });
 
   document.querySelectorAll('.fade-in, .stagger').forEach(el => observer.observe(el));
 
-  // === CONTADOR ANIMADO ===
+  // === CONTADOR ===
   const counters = document.querySelectorAll('.stat-number');
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -1143,7 +1539,7 @@
 
   counters.forEach(c => counterObserver.observe(c));
 
-  // === CARD 3D CON MOUSE ===
+  // === CARD 3D ===
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
@@ -1158,19 +1554,201 @@
       card.style.setProperty('--mx', x + 'px');
       card.style.setProperty('--my', y + 'px');
     });
-    
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
+    card.addEventListener('mouseleave', () => card.style.transform = '');
   });
 
-  // === PARALLAX HERO ===
+  // === PARALLAX ===
   window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const hero = document.querySelector('.hero');
     if (hero && scrolled < window.innerHeight) {
       hero.style.transform = `translateY(${scrolled * 0.4}px)`;
       hero.style.opacity = Math.max(0, 1 - scrolled / (window.innerHeight * 0.8));
+    }
+  });
+
+  // === FAQ ACORDEÓN ===
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // === MODAL DE ÁREAS ===
+  const areaData = {
+    programacion: {
+      icon: '💻',
+      title: 'PROGRAMACIÓN',
+      description: 'Conviértete en el arquitecto del juego. Escribirás el código que da vida a las mecánicas, la lógica, la IA y todos los sistemas del videojuego.',
+      list: [
+        'Programar mecánicas de juego (movimiento, combate, etc.)',
+        'Implementar sistemas (menús, guardado, inventario)',
+        'Trabajar con el motor Godot o Unity',
+        'Optimizar rendimiento y corregir bugs',
+        'Colaborar con diseño para hacer realidad las ideas'
+      ]
+    },
+    arte2d: {
+      icon: '🎨',
+      title: 'ARTE 2D',
+      description: 'Da vida visual al juego. Crearás desde personajes y escenarios hasta la interfaz de usuario que verá el jugador.',
+      list: [
+        'Diseñar personajes, objetos y escenarios',
+        'Crear animaciones frame a frame o esqueléticas',
+        'Diseñar la interfaz de usuario (UI)',
+        'Crear íconos, menús y elementos visuales',
+        'Definir el estilo artístico del juego'
+      ]
+    },
+    arte3d: {
+      icon: '🗿',
+      title: 'ARTE 3D',
+      description: 'Modela, esculpe y anima el mundo del juego en tres dimensiones. Desde personajes hasta entornos completos.',
+      list: [
+        'Modelar personajes y objetos (Blender, Maya)',
+        'Texturizar y aplicar materiales',
+        'Crear animaciones 3D',
+        'Diseñar entornos y escenarios 3D',
+        'Optimizar modelos para el motor'
+      ]
+    },
+    diseno: {
+      icon: '🎯',
+      title: 'DISEÑO DE JUEGO',
+      description: 'Diseñas cómo se siente el juego. Reglas, niveles, progresión y el balance perfecto para que sea divertido.',
+      list: [
+        'Diseñar mecánicas y sistemas de juego',
+        'Crear niveles y mapas',
+        'Balancear dificultad y economía del juego',
+        'Documentar el diseño (GDD)',
+        'Probar y ajustar la experiencia del jugador'
+      ]
+    },
+    audio: {
+      icon: '🎵',
+      title: 'AUDIO',
+      description: 'El sonido hace que un juego se sienta vivo. Crearás la música, efectos y toda la atmósfera sonora.',
+      list: [
+        'Componer música original para el juego',
+        'Crear efectos de sonido (SFX)',
+        'Diseñar la ambientación sonora',
+        'Trabajar con software como FL Studio, Audacity',
+        'Sincronizar audio con las acciones del juego'
+      ]
+    },
+    qa: {
+      icon: '🧪',
+      title: 'QA / TESTING',
+      description: 'El guardián de la calidad. Encuentras bugs, problemas de balance y todo lo que falla antes de que llegue al jugador.',
+      list: [
+        'Probar el juego en diferentes escenarios',
+        'Reportar bugs de forma clara y ordenada',
+        'Verificar que las correcciones funcionen',
+        'Probar en distintas plataformas y dispositivos',
+        'Sugerir mejoras de jugabilidad'
+      ]
+    },
+    marketing: {
+      icon: '📢',
+      title: 'MARKETING',
+      description: 'Haz que el mundo conozca el juego. Gestionarás redes sociales, comunidad, tráileres y toda la comunicación.',
+      list: [
+        'Gestionar redes sociales del estudio',
+        'Crear contenido para promocionar el juego',
+        'Coordinar con prensa y creadores de contenido',
+        'Diseñar trailers y material promocional',
+        'Construir y cuidar la comunidad'
+      ]
+    },
+    guion: {
+      icon: '📝',
+      title: 'GUION / NARRATIVA',
+      description: 'Cuentas la historia del juego. Diálogos, personajes, mundo y todo lo que hace que el jugador se sumerja.',
+      list: [
+        'Escribir la historia principal y secundarias',
+        'Crear diálogos y personalidad de personajes',
+        'Diseñar el lore y la mitología del mundo',
+        'Escribir textos de interfaz y tutoriales',
+        'Colaborar con diseño para narrativa integrada'
+      ]
+    }
+  };
+
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalIcon = document.getElementById('modalIcon');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDescription = document.getElementById('modalDescription');
+  const modalList = document.getElementById('modalList');
+  const modalClose = document.getElementById('modalClose');
+  const modalCta = document.getElementById('modalCta');
+
+  document.querySelectorAll('.area-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      const data = areaData[tag.dataset.area];
+      if (!data) return;
+      
+      modalIcon.textContent = data.icon;
+      modalTitle.textContent = data.title;
+      modalDescription.textContent = data.description;
+      modalList.innerHTML = data.list.map(item => `<li>${item}</li>`).join('');
+      modalOverlay.classList.add('active');
+      
+      // Guardar el área seleccionada
+      modalCta.dataset.area = data.title;
+    });
+  });
+
+  function closeModal() {
+    modalOverlay.classList.remove('active');
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  modalCta.addEventListener('click', () => {
+    // Seleccionar automáticamente el área en el formulario
+    const area = modalCta.dataset.area;
+    const areaSelect = document.querySelector('select[name="Area"]');
+    if (areaSelect) {
+      for (let opt of areaSelect.options) {
+        if (opt.value.includes(area.split(' ')[0])) {
+          areaSelect.value = opt.value;
+          break;
+        }
+      }
+    }
+    closeModal();
+    setTimeout(() => {
+      document.getElementById('aplicar').scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+  });
+
+  // === VALIDACIÓN DE CHECKBOXES ===
+  const checkTerms = document.getElementById('checkTerms');
+  const checkPrivacy = document.getElementById('checkPrivacy');
+  const checkContract = document.getElementById('checkContract');
+  const submitBtn = document.getElementById('submitBtn');
+  const applyForm = document.getElementById('applyForm');
+
+  function validateChecks() {
+    const allChecked = checkTerms.checked && checkPrivacy.checked && checkContract.checked;
+    submitBtn.disabled = !allChecked;
+  }
+
+  [checkTerms, checkPrivacy, checkContract].forEach(c => {
+    c.addEventListener('change', validateChecks);
+  });
+
+  // Doble validación al enviar
+  applyForm.addEventListener('submit', (e) => {
+    if (!checkTerms.checked || !checkPrivacy.checked || !checkContract.checked) {
+      e.preventDefault();
+      alert('⚠️ Debes aceptar los Términos, la Política de Privacidad y el Contrato antes de enviar.');
     }
   });
 </script>
