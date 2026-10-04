@@ -1092,3 +1092,22 @@ footer .footer-note strong { color: var(--fire3); }
   .nav-float { padding: 6px 10px; }
   .nav-float a { padding: 6px 10px; font-size: 0.75em; }
 }
+
+/* Ajuste para logo JPG con fondo claro */
+.logo-img {
+  background: transparent;
+  mix-blend-mode: lighten;
+  border-radius: 12px;
+}
+
+.footer-logo-img {
+  background: transparent;
+  mix-blend-mode: lighten;
+  border-radius: 8px;
+}
+
+/* Alternativa para quitar fondo blanco del JPG */
+.logo-img,
+.footer-logo-img {
+  filter: brightness(1.1) contrast(1.2);
+}
