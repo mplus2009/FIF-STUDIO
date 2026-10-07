@@ -3,200 +3,324 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FIF STUDIO - Forged in Fire | Solicitud de Colaboración</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    color: #eaeaea;
-    min-height: 100vh;
-    padding: 20px;
-  }
-  .container {
-    max-width: 700px;
-    margin: 0 auto;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 16px;
-    padding: 40px 30px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-  }
-  .logo {
-    text-align: center;
-    font-size: 2.2em;
-    font-weight: bold;
-    background: linear-gradient(90deg, #ff6b35, #f7931e, #ffcc00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
-    letter-spacing: 2px;
-  }
-  .tagline {
-    text-align: center;
-    color: #a0a0b0;
-    font-style: italic;
-    margin-bottom: 30px;
-    font-size: 0.95em;
-  }
-  h2 {
-    color: #ff6b35;
-    margin-bottom: 20px;
-    font-size: 1.4em;
-    border-bottom: 2px solid #ff6b35;
-    padding-bottom: 10px;
-  }
-  .info-box {
-    background: rgba(255,107,53,0.1);
-    border-left: 4px solid #ff6b35;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 25px;
-    font-size: 0.9em;
-    line-height: 1.6;
-  }
-  .info-box strong { color: #ffcc00; }
-  label {
-    display: block;
-    margin-bottom: 8px;
-    color: #eaeaea;
-    font-weight: 500;
-    font-size: 0.95em;
-  }
-  input, select, textarea {
-    width: 100%;
-    padding: 12px 14px;
-    margin-bottom: 18px;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 8px;
-    background: rgba(0,0,0,0.3);
-    color: #fff;
-    font-size: 1em;
-    font-family: inherit;
-    transition: border 0.3s, box-shadow 0.3s;
-  }
-  input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: #ff6b35;
-    box-shadow: 0 0 0 3px rgba(255,107,53,0.2);
-  }
-  textarea { resize: vertical; min-height: 100px; }
-  select option { background: #1a1a2e; color: #fff; }
-  button {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(90deg, #ff6b35, #f7931e);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: bold;
-    cursor: pointer;
-    letter-spacing: 1px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255,107,53,0.4);
-  }
-  .footer {
-    text-align: center;
-    margin-top: 25px;
-    color: #707080;
-    font-size: 0.8em;
-    line-height: 1.6;
-  }
-  .required { color: #ff6b35; }
-</style>
+<title>FIF STUDIO 🔥 Forged in Fire | Únete al equipo</title>
+<meta name="description" content="Estudio indie de videojuegos buscando jóvenes cubanos apasionados. Programación, arte, diseño y más.">
+<link rel="icon" type="image/png" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<div class="container">
-  <div class="logo">FIF STUDIO</div>
-  <div class="tagline">Forged in Fire — Forjado en el fuego</div>
 
-  <div class="info-box">
-    <strong>¿Quiénes somos?</strong> Somos un pequeño estudio indie de videojuegos en formación. Buscamos <strong>jóvenes cubanos de 16 a 23 años</strong> apasionados por los videojuegos para colaborar <strong>voluntariamente</strong> (sin remuneración por ahora).<br><br>
-    <strong>¿Qué ganas?</strong> Experiencia real, aparecer en los créditos del juego, portafolio y aprendizaje en equipo remoto.<br><br>
-    <strong>¿Trabajo remoto?</strong> Sí, 100% remoto. Nos reunimos 1-2 veces por semana según tu área.
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+<div class="scroll-progress"></div>
+
+<nav class="nav-float" id="navFloat">
+  <a href="#info">ℹ️ Info</a>
+  <a href="#areas">🎯 Áreas</a>
+  <a href="#faq">❓ FAQ</a>
+  <a href="#aplicar">🔥 Aplicar</a>
+</nav>
+
+<div class="bg-gradient"></div>
+<canvas id="fireCanvas"></canvas>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="logo-container">
+    <img src="img/logo.png" alt="FIF STUDIO Logo" class="logo-img">
+  </div>
+  <h1 class="title">FIF STUDIO</h1>
+  <p class="subtitle">
+    <span class="typing-text">Forged in Fire ⚔️ Forjado en el fuego</span>
+  </p>
+
+  <div class="cta-buttons">
+    <a href="#aplicar" class="btn btn-primary">⚡ ÚNETE AL EQUIPO</a>
+    <a href="#info" class="btn btn-ghost">📖 SABER MÁS</a>
   </div>
 
-  <h2>Formulario de Solicitud</h2>
+  <div class="scroll-down">
+    SCROLL
+    <span class="scroll-arrow">↓</span>
+  </div>
+</div>
 
-  <form action="https://formsubmit.co/maikelmplus2009@gmail.com" method="POST">
-    <label>Nombre completo <span class="required">*</span></label>
-    <input type="text" name="Nombre" required placeholder="Tu nombre y apellidos">
+<!-- INFO -->
+<section id="info" class="fade-in">
+  <h2 class="section-title">¿Quiénes <span class="accent">somos</span>?</h2>
+  <p class="section-subtitle">Un estudio indie forjándose desde cero</p>
 
-    <label>Edad <span class="required">*</span></label>
-    <input type="number" name="Edad" min="16" max="23" required placeholder="16 a 23 años">
+  <div class="cards-grid stagger">
+    <div class="card">
+      <span class="card-icon">🎮</span>
+      <h3>PROYECTO REAL</h3>
+      <p>Estamos creando un videojuego desde cero. Tu trabajo será parte de algo real, no un ejercicio.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🌍</span>
+      <h3>100% REMOTO</h3>
+      <p>Trabajamos desde cualquier lugar de Cuba. Reuniones 1-2 veces por semana según tu área.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🏆</span>
+      <h3>CRÉDITOS REALES</h3>
+      <p>Aparecerás en los créditos del juego terminado. Perfecto para tu portafolio profesional.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔥</span>
+      <h3>SIN EXPERIENCIA</h3>
+      <p>No importa si eres principiante. Lo que importa son las ganas de aprender y crear.</p>
+    </div>
+  </div>
+</section>
 
-    <label>Correo electrónico <span class="required">*</span></label>
-    <input type="email" name="Email" required placeholder="tucorreo@ejemplo.com">
+<!-- STATS -->
+<section class="fade-in">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <span class="stat-number" data-target="8">0</span>
+      <span class="stat-label">Áreas abiertas</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="100">0</span>
+      <span class="stat-label">% Remoto</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="16">0</span>
+      <span class="stat-label">Edad mínima</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="23">0</span>
+      <span class="stat-label">Edad máxima</span>
+    </div>
+  </div>
+</section>
 
-    <label>Discord / Telegram (usuario) <span class="required">*</span></label>
-    <input type="text" name="Contacto" required placeholder="usuario#1234 o @usuario">
+<!-- AREAS -->
+<section id="areas" class="fade-in">
+  <h2 class="section-title">Áreas <span class="accent">abiertas</span></h2>
+  <p class="section-subtitle">👆 Toca cualquier área para más información</p>
 
-    <label>Provincia / Ciudad <span class="required">*</span></label>
-    <input type="text" name="Ubicacion" required placeholder="Ej: La Habana, Camagüey...">
+  <div class="areas-grid stagger">
+    <div class="area-tag" data-area="programacion"><span class="emoji">💻</span>Programación<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="arte2d"><span class="emoji">🎨</span>Arte 2D<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="arte3d"><span class="emoji">🗿</span>Arte 3D<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="diseno"><span class="emoji">🎯</span>Diseño<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="audio"><span class="emoji">🎵</span>Audio<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="qa"><span class="emoji">🧪</span>QA / Testing<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="marketing"><span class="emoji">📢</span>Marketing<span class="ver-mas">Ver más →</span></div>
+    <div class="area-tag" data-area="guion"><span class="emoji">📝</span>Guion<span class="ver-mas">Ver más →</span></div>
+  </div>
+</section>
 
-    <label>Área que te interesa <span class="required">*</span></label>
-    <select name="Area" required>
-      <option value="">-- Selecciona un área --</option>
-      <option value="Programación">Programación (C#, C++, GDScript, etc.)</option>
-      <option value="Arte 2D">Arte 2D (personajes, escenarios, UI)</option>
-      <option value="Arte 3D">Arte 3D (modelado, animación)</option>
-      <option value="Diseño de juego">Diseño de juego (mecánicas, niveles)</option>
-      <option value="Audio">Audio (música, efectos de sonido)</option>
-      <option value="QA / Testing">QA / Testing</option>
-      <option value="Marketing">Marketing / Community</option>
-      <option value="Guion / Narrativa">Guion / Narrativa</option>
-    </select>
+<!-- FAQ -->
+<section id="faq" class="fade-in">
+  <h2 class="section-title">Preguntas <span class="accent">frecuentes</span></h2>
+  <p class="section-subtitle">Todo lo que necesitas saber antes de aplicar</p>
 
-    <label>Nivel de experiencia <span class="required">*</span></label>
-    <select name="Experiencia" required>
-      <option value="">-- Selecciona tu nivel --</option>
-      <option value="Principiante">Principiante (con muchas ganas de aprender)</option>
-      <option value="Intermedio">Intermedio (he hecho cosas por mi cuenta)</option>
-      <option value="Avanzado">Avanzado (proyectos terminados)</option>
-    </select>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-question">¿Es realmente gratis? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Sí, es 100% gratuito. No cobramos nada por participar. Es una colaboración voluntaria donde todos aprendemos juntos.</div>
+    </div>
 
-    <label>¿Tienes equipo (PC/laptop) y conexión estable? <span class="required">*</span></label>
-    <select name="Equipo" required>
-      <option value="">-- Selecciona --</option>
-      <option value="Sí, ambos">Sí, equipo y conexión estable</option>
-      <option value="Solo PC">Solo PC/laptop, conexión irregular</option>
-      <option value="Solo móvil">Solo móvil</option>
-      <option value="No">No por ahora</option>
-    </select>
+    <div class="faq-item">
+      <div class="faq-question">¿Voy a recibir dinero por mi trabajo? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Por ahora no, es una colaboración voluntaria sin remuneración. Si el proyecto genera ingresos en el futuro, se repartirán de forma justa entre los miembros activos.</div>
+    </div>
 
-    <label>¿Cuántas horas semanales puedes dedicar? <span class="required">*</span></label>
-    <select name="Horas" required>
-      <option value="">-- Selecciona --</option>
-      <option value="Menos de 5">Menos de 5 horas</option>
-      <option value="5 a 10">5 a 10 horas</option>
-      <option value="10 a 20">10 a 20 horas</option>
-      <option value="Más de 20">Más de 20 horas</option>
-    </select>
+    <div class="faq-item">
+      <div class="faq-question">¿Qué pasa si no tengo experiencia? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">¡No hay problema! Buscamos personas con ganas de aprender. Los líderes de cada área te guiarán y podrás crecer dentro del equipo.</div>
+    </div>
 
-    <label>Cuéntanos sobre ti <span class="required">*</span></label>
-    <textarea name="Presentacion" required placeholder="¿Por qué quieres unirte a FIF STUDIO? ¿Qué sabes hacer? ¿Qué te gustaría aprender? ¿Tienes algún portafolio o proyecto previo?"></textarea>
+    <div class="faq-item">
+      <div class="faq-question">¿Cómo son las reuniones? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Son remotas por Discord. Los líderes se reúnen 1 vez por semana con el director, y cada líder se reúne 2 veces por semana con su equipo. Total: 3-4 horas semanales máximo.</div>
+    </div>
 
-    <label>¿Cómo nos conociste? (opcional)</label>
-    <input type="text" name="Como nos conociste" placeholder="Redes, amigo, GitHub...">
+    <div class="faq-item">
+      <div class="faq-question">¿Qué pasa si quiero salir del proyecto? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Puedes salir cuando quieras, avisando con al menos 1 semana de anticipación para que podamos redistribuir tu trabajo. No hay contratos vinculantes.</div>
+    </div>
 
-    <input type="hidden" name="_subject" value="🔥 Nueva solicitud FIF STUDIO">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://mplus2009.github.io/FIF-STUDIO/gracias.html">
+    <div class="faq-item">
+      <div class="faq-question">¿Qué motor gráfico usan? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Principalmente Godot (gratuito y open source) o Unity. La decisión final se toma en conjunto con el equipo de programación.</div>
+    </div>
 
-    <button type="submit">ENVIAR SOLICITUD</button>
-  </form>
+    <div class="faq-item">
+      <div class="faq-question">¿Necesito mi propio equipo (PC)? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Idealmente sí, una PC o laptop con conexión a internet. Si solo tienes móvil, aún puedes participar en áreas como diseño, guion o marketing.</div>
+    </div>
+  </div>
+</section>
 
-  <div class="footer">
-    FIF STUDIO &copy; 2026 — Forged in Fire<br>
+<!-- FORMULARIO -->
+<section id="aplicar" class="fade-in">
+  <h2 class="section-title">Aplica <span class="accent">ahora</span></h2>
+  <p class="section-subtitle">Jóvenes cubanos de 16 a 23 años · Colaboración voluntaria</p>
+
+  <div class="form-container">
+    <form action="https://formsubmit.co/maikelmplus2009@gmail.com" method="POST" id="applyForm">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre completo <span class="req">*</span></label>
+          <input type="text" name="Nombre" required placeholder="Tu nombre y apellidos">
+        </div>
+
+        <div class="form-group">
+          <label>Edad <span class="req">*</span></label>
+          <input type="number" name="Edad" min="16" max="23" required placeholder="16 a 23 años">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Correo electrónico <span class="req">*</span></label>
+          <input type="email" name="Email" required placeholder="tucorreo@ejemplo.com">
+        </div>
+
+        <div class="form-group">
+          <label>Discord / Telegram <span class="req">*</span></label>
+          <input type="text" name="Contacto" required placeholder="@usuario o usuario#1234">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Provincia / Ciudad <span class="req">*</span></label>
+        <input type="text" name="Ubicacion" required placeholder="Ej: La Habana, Camagüey, Santiago...">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Área de interés <span class="req">*</span></label>
+          <select name="Area" required>
+            <option value="">-- Selecciona --</option>
+            <option value="Programación">💻 Programación</option>
+            <option value="Arte 2D">🎨 Arte 2D</option>
+            <option value="Arte 3D">🗿 Arte 3D</option>
+            <option value="Diseño de juego">🎯 Diseño de juego</option>
+            <option value="Audio">🎵 Audio</option>
+            <option value="QA / Testing">🧪 QA / Testing</option>
+            <option value="Marketing">📢 Marketing</option>
+            <option value="Guion / Narrativa">📝 Guion / Narrativa</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Nivel de experiencia <span class="req">*</span></label>
+          <select name="Experiencia" required>
+            <option value="">-- Selecciona --</option>
+            <option value="Principiante">🌱 Principiante</option>
+            <option value="Intermedio">⚡ Intermedio</option>
+            <option value="Avanzado">🔥 Avanzado</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>¿Tienes PC y conexión? <span class="req">*</span></label>
+          <select name="Equipo" required>
+            <option value="">-- Selecciona --</option>
+            <option value="Sí, ambos">✅ Sí, ambos</option>
+            <option value="Solo PC">💻 Solo PC/laptop</option>
+            <option value="Solo móvil">📱 Solo móvil</option>
+            <option value="No">❌ No por ahora</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Horas semanales <span class="req">*</span></label>
+          <select name="Horas" required>
+            <option value="">-- Selecciona --</option>
+            <option value="Menos de 5">Menos de 5 horas</option>
+            <option value="5 a 10">5 a 10 horas</option>
+            <option value="10 a 20">10 a 20 horas</option>
+            <option value="Más de 20">Más de 20 horas</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Cuéntanos sobre ti <span class="req">*</span></label>
+        <textarea name="Presentacion" required placeholder="¿Por qué quieres unirte a FIF STUDIO? ¿Qué sabes hacer? ¿Qué te gustaría aprender? ¿Tienes algún portafolio o proyecto previo?"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>¿Cómo nos conociste? (opcional)</label>
+        <input type="text" name="Como nos conociste" placeholder="Discord, amigo, Telegram...">
+      </div>
+
+      <div class="legal-checks">
+        <h4>📋 ANTES DE ENVIAR</h4>
+
+        <div class="check-item">
+          <input type="checkbox" id="checkTerms" name="Acepta_Terminos" value="Sí" required>
+          <label for="checkTerms">He leído y acepto los <a href="terminos.html" target="_blank">Términos y Condiciones</a> de FIF STUDIO.</label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="checkPrivacy" name="Acepta_Privacidad" value="Sí" required>
+          <label for="checkPrivacy">He leído y acepto la <a href="privacidad.html" target="_blank">Política de Privacidad</a> y autorizo el uso de mis datos para el proceso de selección.</label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="checkContract" name="Acepta_Contrato" value="Sí" required>
+          <label for="checkContract">He leído y acepto el <a href="contrato.html" target="_blank">Contrato de Colaboración Voluntaria</a> de FIF STUDIO.</label>
+        </div>
+      </div>
+
+      <input type="hidden" name="_subject" value="🔥 Nueva solicitud FIF STUDIO">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://mplus2009.github.io/FIF-STUDIO/gracias.html">
+      <input type="hidden" name="_autoresponse" value="¡Gracias por aplicar a FIF STUDIO! 🔥 Hemos recibido tu solicitud. Revisaremos tu perfil y te contactaremos pronto por Discord o correo. Mientras tanto, sigue practicando — la forja no se detiene. ⚔️ — Equipo FIF STUDIO">
+
+      <button type="submit" class="btn-submit" id="submitBtn" disabled>
+        <span>🔥 ENVIAR SOLICITUD 🔥</span>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">✕</button>
+    <span class="modal-icon" id="modalIcon">💻</span>
+    <h3 class="modal-title" id="modalTitle">Programación</h3>
+    <p class="modal-description" id="modalDescription"></p>
+    <ul class="modal-list" id="modalList"></ul>
+    <button class="modal-cta" id="modalCta">🔥 QUIERO ESTA ÁREA</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <img src="img/logo.png" alt="FIF STUDIO" class="footer-logo-img">
+  <div class="footer-logo">FIF STUDIO</div>
+  <div class="footer-links">
+    <a href="terminos.html">Términos</a>
+    <a href="privacidad.html">Privacidad</a>
+    <a href="contrato.html">Contrato</a>
+    <a href="#aplicar">Aplicar</a>
+  </div>
+  <div class="footer-note">
+    <strong>Forged in Fire</strong> ⚔️ — 2026<br>
     Colaboración voluntaria sin remuneración por el momento.<br>
     Los miembros aparecerán en los créditos del proyecto.
   </div>
-</div>
+</footer>
+
+<button class="back-top" id="backTop">↑</button>
+
+<script src="js/main.js"></script>
+
 </body>
 </html>

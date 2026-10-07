@@ -162,6 +162,8 @@ body {
 .logo-img {
   width: clamp(140px, 20vw, 200px);
   height: auto;
+  background: transparent;
+  border-radius: 0;
   filter: drop-shadow(0 0 30px rgba(255,107,53,0.8)) 
           drop-shadow(0 0 60px rgba(255,69,0,0.5));
   animation: logoPulse 2.5s ease-in-out infinite;
@@ -1011,11 +1013,12 @@ footer .footer-logo {
 }
 
 footer .footer-logo-img {
+  background: transparent;
   width: 60px;
   height: auto;
   margin-bottom: 10px;
   filter: drop-shadow(0 0 15px rgba(255,107,53,0.5));
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 footer .footer-links {
@@ -1091,41 +1094,4 @@ footer .footer-note strong { color: var(--fire3); }
   .form-row { grid-template-columns: 1fr; }
   .nav-float { padding: 6px 10px; }
   .nav-float a { padding: 6px 10px; font-size: 0.75em; }
-}
-
-/* Ajuste para logo JPG con fondo claro */
-.logo-img {
-  background: transparent;
-  mix-blend-mode: lighten;
-  border-radius: 12px;
-}
-
-.footer-logo-img {
-  background: transparent;
-  mix-blend-mode: lighten;
-  border-radius: 8px;
-}
-
-/* Alternativa para quitar fondo blanco del JPG */
-.logo-img,
-.footer-logo-img {
-  filter: brightness(1.1) contrast(1.2);
-}
-
-/* ============ LOGO PNG ============ */
-.logo-img {
-  background: transparent;
-  border-radius: 0;
-  filter: drop-shadow(0 0 30px rgba(255,107,53,0.8)) 
-          drop-shadow(0 0 60px rgba(255,69,0,0.5));
-  animation: logoPulse 2.5s ease-in-out infinite;
-}
-
-.footer-logo-img {
-  background: transparent;
-  width: 60px;
-  height: auto;
-  margin-bottom: 10px;
-  filter: drop-shadow(0 0 15px rgba(255,107,53,0.5));
-  opacity: 0.9;
 }

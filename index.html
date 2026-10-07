@@ -156,6 +156,11 @@
       <div class="faq-question">¿Necesito mi propio equipo (PC)? <span class="faq-arrow">▼</span></div>
       <div class="faq-answer">Idealmente sí, una PC o laptop con conexión a internet. Si solo tienes móvil, aún puedes participar en áreas como diseño, guion o marketing.</div>
     </div>
+
+    <div class="faq-item">
+      <div class="faq-question">¿Por qué piden mi carnet de identidad? <span class="faq-arrow">▼</span></div>
+      <div class="faq-answer">Únicamente para verificar tu identidad, evitar duplicados o suplantaciones y garantizar que cada persona participe una sola vez. Tu carnet no se compartirá con terceros ni se usará para fines distintos al proceso de selección.</div>
+    </div>
   </div>
 </section>
 
@@ -169,13 +174,25 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label>Nombre completo <span class="req">*</span></label>
-          <input type="text" name="Nombre" required placeholder="Tu nombre y apellidos">
+          <label>Nombre <span class="req">*</span></label>
+          <input type="text" name="Nombre" required placeholder="Tu nombre">
         </div>
 
         <div class="form-group">
+          <label>Apellidos <span class="req">*</span></label>
+          <input type="text" name="Apellidos" required placeholder="Tus apellidos">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
           <label>Edad <span class="req">*</span></label>
           <input type="number" name="Edad" min="16" max="23" required placeholder="16 a 23 años">
+        </div>
+
+        <div class="form-group">
+          <label>Carnet de identidad <span class="req">*</span></label>
+          <input type="text" name="Carnet" required placeholder="11 dígitos" pattern="[0-9]{11}" maxlength="11" title="Debe tener 11 dígitos">
         </div>
       </div>
 
@@ -186,14 +203,21 @@
         </div>
 
         <div class="form-group">
-          <label>Discord / Telegram <span class="req">*</span></label>
-          <input type="text" name="Contacto" required placeholder="@usuario o usuario#1234">
+          <label>Número de teléfono <span class="req">*</span></label>
+          <input type="tel" name="Telefono" required placeholder="+53 5XXXXXXX" pattern="[\+0-9 ]{8,15}" title="Ej: +53 55512345">
         </div>
       </div>
 
-      <div class="form-group">
-        <label>Provincia / Ciudad <span class="req">*</span></label>
-        <input type="text" name="Ubicacion" required placeholder="Ej: La Habana, Camagüey, Santiago...">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Discord / Telegram <span class="req">*</span></label>
+          <input type="text" name="Contacto" required placeholder="@usuario o usuario#1234">
+        </div>
+
+        <div class="form-group">
+          <label>Provincia / Ciudad <span class="req">*</span></label>
+          <input type="text" name="Ubicacion" required placeholder="Ej: La Habana, Camagüey...">
+        </div>
       </div>
 
       <div class="form-row">
@@ -267,7 +291,7 @@
 
         <div class="check-item">
           <input type="checkbox" id="checkPrivacy" name="Acepta_Privacidad" value="Sí" required>
-          <label for="checkPrivacy">He leído y acepto la <a href="privacidad.html" target="_blank">Política de Privacidad</a> y autorizo el uso de mis datos para el proceso de selección.</label>
+          <label for="checkPrivacy">He leído y acepto la <a href="privacidad.html" target="_blank">Política de Privacidad</a> y autorizo el uso de mis datos (incluido mi carnet de identidad) para el proceso de selección.</label>
         </div>
 
         <div class="check-item">
