@@ -160,7 +160,7 @@ body {
 }
 
 .logo-img {
-  width: clamp(140px, 20vw, 200px);
+  width: clamp(240px, 20vw, 200px);
   height: auto;
   background: transparent;
   border-radius: 0;
@@ -1014,7 +1014,7 @@ footer .footer-logo {
 
 footer .footer-logo-img {
   background: transparent;
-  width: 60px;
+  width: 150px;
   height: auto;
   margin-bottom: 10px;
   filter: drop-shadow(0 0 15px rgba(255,107,53,0.5));
