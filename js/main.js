@@ -6,17 +6,19 @@
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorRing = document.querySelector('.cursor-ring');
 
-document.addEventListener('mousemove', (e) => {
-  cursorDot.style.left = e.clientX + 'px';
-  cursorDot.style.top = e.clientY + 'px';
-  cursorRing.style.left = e.clientX + 'px';
-  cursorRing.style.top = e.clientY + 'px';
-});
+if (cursorDot && cursorRing) {
+  document.addEventListener('mousemove', (e) => {
+    cursorDot.style.left = e.clientX + 'px';
+    cursorDot.style.top = e.clientY + 'px';
+    cursorRing.style.left = e.clientX + 'px';
+    cursorRing.style.top = e.clientY + 'px';
+  });
 
-document.querySelectorAll('a, button, input, select, textarea, .area-tag, .card, .faq-question, .check-item').forEach(el => {
-  el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
-  el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
-});
+  document.querySelectorAll('a, button, input, select, textarea, .area-tag, .card, .faq-question, .check-item').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+  });
+}
 
 // ============ CLICK WAVE ============
 document.addEventListener('click', (e) => {
@@ -282,7 +284,6 @@ const modalTitle = document.getElementById('modalTitle');
 const modalDescription = document.getElementById('modalDescription');
 const modalList = document.getElementById('modalList');
 const modalClose = document.getElementById('modalClose');
-const modalCta = document.getElementById('modalCta');
 
 if (modalOverlay) {
   document.querySelectorAll('.area-tag').forEach(tag => {
@@ -295,7 +296,6 @@ if (modalOverlay) {
       modalDescription.textContent = data.description;
       modalList.innerHTML = data.list.map(item => `<li>${item}</li>`).join('');
       modalOverlay.classList.add('active');
-      modalCta.dataset.area = data.title;
     });
   });
 
@@ -303,50 +303,46 @@ if (modalOverlay) {
     modalOverlay.classList.remove('active');
   }
 
-  modalClose.addEventListener('click', closeModal);
+  if (modalClose) modalClose.addEventListener('click', closeModal);
   modalOverlay.addEventListener('click', (e) => {
     if (e.target === modalOverlay) closeModal();
   });
-
-  modalCta.addEventListener('click', () => {
-    const area = modalCta.dataset.area;
-    const areaSelect = document.querySelector('select[name="Area"]');
-    if (areaSelect) {
-      for (let opt of areaSelect.options) {
-        if (opt.value.includes(area.split(' ')[0])) {
-          areaSelect.value = opt.value;
-          break;
-        }
-      }
-    }
-    closeModal();
-    setTimeout(() => {
-      document.getElementById('aplicar').scrollIntoView({ behavior: 'smooth' });
-    }, 300);
-  });
 }
 
-// ============ VALIDACIÓN CHECKBOXES ============
+// ============ VALIDACIÓN Y ENVÍO DEL FORMULARIO ============
+// Se buscan los checkboxes y el botón por su ID
 const checkTerms = document.getElementById('checkTerms');
 const checkPrivacy = document.getElementById('checkPrivacy');
 const checkContract = document.getElementById('checkContract');
 const submitBtn = document.getElementById('submitBtn');
 const applyForm = document.getElementById('applyForm');
 
-if (checkTerms && checkPrivacy && checkContract && submitBtn && applyForm) {
+// Fallback: si el botón no tiene id="submitBtn", buscarlo por su clase
+const finalSubmitBtn = submitBtn || document.querySelector('.btn-submit');
+
+if (checkTerms && checkPrivacy && checkContract && finalSubmitBtn && applyForm) {
+
   function validateChecks() {
     const allChecked = checkTerms.checked && checkPrivacy.checked && checkContract.checked;
-    submitBtn.disabled = !allChecked;
+    finalSubmitBtn.disabled = !allChecked;
   }
 
+  // Ejecutar al cargar la página por si ya están marcados
+  validateChecks();
+
+  // Escuchar cambios en cada checkbox
   [checkTerms, checkPrivacy, checkContract].forEach(c => {
     c.addEventListener('change', validateChecks);
+    c.addEventListener('click', validateChecks);
   });
 
+  // Validación final al enviar
   applyForm.addEventListener('submit', (e) => {
     if (!checkTerms.checked || !checkPrivacy.checked || !checkContract.checked) {
       e.preventDefault();
       alert('⚠️ Debes aceptar los Términos, la Política de Privacidad y el Contrato antes de enviar.');
     }
   });
+} else {
+  console.warn('⚠️ No se encontraron los elementos necesarios para la validación del formulario');
 }
